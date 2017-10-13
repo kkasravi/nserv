@@ -1,10 +1,10 @@
 #!/bin/bash
-rm -rf $(ls | egrep -v 'Dockerfile|Makefile|boilerplate.go.txt|cluster_types|cluster_example|docker-compose.yml|scripts')
+rm -rf $(ls | egrep -v 'Dockerfile|Makefile|boilerplate.go.txt|cluster_types|cluster_sample|docker-compose.yml|scripts')
 apiserver-boot init repo --domain aipg.intel.com
 apiserver-boot create group version resource --group nserv --version v1 --kind Cluster
 apiserver-boot build generated
 cp cluster_types pkg/apis/nserv/v1/cluster_types.go
-cp cluster_example sample/cluster.yaml
+cp cluster_sample sample/cluster.yaml
 apiserver-boot build generated
 apiserver-boot build executables --generate=false
 
