@@ -1,0 +1,14 @@
+#!/bin/bash
+rm -rf $(ls | egrep -v 'Dockerfile|Makefile|boilerplate.go.txt|cluster_types|cluster_example|docker-compose.yml|scripts')
+apiserver-boot init repo --domain aipg.intel.com
+apiserver-boot create group version resource --group nserv --version v1 --kind Cluster
+apiserver-boot build generated
+cp cluster_types pkg/apis/nserv/v1/cluster_types.go
+cp cluster_example sample/cluster.yaml
+apiserver-boot build generated
+apiserver-boot build executables --generate=false
+
+#echo go build -o bin/apiserver -gcflags "-N -l" cmd/apiserver/main.go
+#go build -o bin/apiserver -gcflags "-N -l" cmd/apiserver/main.go
+#echo go build -o bin/controller-manager -gcflags "-N -l" cmd/controller-manager/main.go
+#go build -o bin/controller-manager -gcflags "-N -l" cmd/controller-manager/main.go

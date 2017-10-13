@@ -1,0 +1,12 @@
+apiVersion: nserv.aipg.intel.com/v1
+kind: Cluster
+metadata:
+  name: ex1
+spec:
+  worker:
+  - worker0.example.com:2222
+  - worker1.example.com:2222
+  - worker2.example.com:2222
+  ps:
+  - ps0.example.com:2222
+  - ps1.example.com:2222

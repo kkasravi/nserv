@@ -1,0 +1,8 @@
+version: '2'
+services:
+  nserv:
+    image: "kkasravi/nserv:latest"
+    command: "/go/src/github.com/nervanasystems/nserv/scripts/run"
+    ports:
+      - 9443:9443
+    privileged: true # required for debugging

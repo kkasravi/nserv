@@ -1,0 +1,4 @@
+#!/bin/bash
+
+apiserver-boot run local --build=false
+#kubectl --kubeconfig kubeconfig api-versions
