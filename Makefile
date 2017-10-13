@@ -57,8 +57,9 @@ scrub:
 
 schemas:
 	@echo Generating schemas
-	@kubectl proxy &
-	@openapi2jsonschema http://127.0.0.1:8001/swagger.json
+	@docker-compose exec -d -T nserv kubectl --kubeconfig=kubeconfig proxy
+	@docker-compose exec nserv openapi2jsonschema http://127.0.0.1:8001/swagger.json
+	@docker-compose exec nserv pkill kubectl
 
 test:
 	@echo Running tests

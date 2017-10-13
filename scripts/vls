@@ -1,0 +1,49 @@
+#!/bin/bash
+usage()
+{
+cat << EOF
+usage: $0 options
+lists file path for files with the given name
+OPTIONS:
+   -h      Show this message
+   -v      Verbose 
+   -d      directory to search recursively in
+   -l      show long listing
+EOF
+}
+DIRECTORY=.
+while getopts “hvt:d:l” OPTION
+do
+     case "${OPTION}" in
+         h)
+             usage
+             exit 1
+             ;;
+         d)
+             DIRECTORY=$OPTARG
+             ;;
+         v)
+             VERBOSE=true
+             ;;
+         l)
+             LONGLISTING=true
+             ;;
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
+shift $((OPTIND-1))
+if [ $# = 0 ]; then
+  usage
+  exit 1
+fi
+if [ ! -z $VERBOSE ]; then
+  echo find $DIRECTORY -name "$1"
+fi
+if [ ! -z $LONGLISTING ]; then
+  ls -l $(find $DIRECTORY -name "$1")
+else 
+  find $DIRECTORY -name "$1"
+fi

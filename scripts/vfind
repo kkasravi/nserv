@@ -1,0 +1,16 @@
+#!/bin/bash
+usage()
+{
+cat << EOF
+usage: $0 options
+Calls vi with results of vls
+EOF
+}
+if [ $# = 0 ]; then
+  usage
+  exit 1
+fi
+if [ ! -z $VERBOSE ]; then
+  echo vi $(vls $*)
+fi
+vi $(vls $*)

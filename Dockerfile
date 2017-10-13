@@ -34,6 +34,7 @@ RUN mv etcd-v3.2.9-linux-amd64/etcd /usr/local/bin
 RUN mv etcd-v3.2.9-linux-amd64/etcdctl /usr/local/bin
 RUN rm -rf etcd-v3.2.9-linux-amd64
 
+RUN pip install openapi2jsonschema
 RUN mkdir -p /go/src/github.com/nervanasystems
 ADD . /go/src/github.com/nervanasystems/nserv
 WORKDIR /go/src/github.com/nervanasystems/nserv
