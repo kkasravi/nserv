@@ -60,6 +60,7 @@ schemas:
 	@docker-compose exec -d -T nserv kubectl --kubeconfig=kubeconfig proxy
 	@docker-compose exec nserv openapi2jsonschema http://127.0.0.1:8001/swagger.json
 	@docker-compose exec nserv pkill kubectl
+	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/schemas .
 
 test:
 	@echo Running tests

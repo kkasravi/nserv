@@ -73,8 +73,8 @@ type ClusterSpec struct {
 	Workers []string `json:",inline"`
 	Ps []string `json:",inline"`
 
-        WorkerSpec WorkerSpec `json:"workerSpec,omitempty"`
-        PsSpec PsSpec `json:"psSpec,omitempty"`
+	WorkerSpec WorkerSpec `json:"workerSpec,omitempty"`
+	PsSpec PsSpec `json:"psSpec,omitempty"`
 }
 
 type WorkerSpec struct {
