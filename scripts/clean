@@ -1,3 +1,2 @@
 #!/bin/bash
-rm -rf WORKSPACE bin cmd docs glide.* pkg sample vendor
-
+rm -rf $(ls | egrep -v 'Dockerfile|Makefile|boilerplate.go.txt|config|docker-compose.yml|scripts')

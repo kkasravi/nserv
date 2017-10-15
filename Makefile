@@ -16,7 +16,7 @@ debug:
 
 dev:
 	@echo "create shell in $(IMAGE) ..."
-	@docker-compose exec --privileged nserv /bin/bash
+	@docker-compose exec --privileged nserv /bin/bash -l
 
 env-down:
 	@echo "Stopping nserv"
@@ -45,7 +45,7 @@ get-cluster:
 	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig get cluster ex1 -oyaml
 
 delete-cluster:
-	@kubectl --kubeconfig=kubeconfig delete -f sample/cluster.yaml
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig delete cluster ex1
 
 clean:
 	@echo "Removing image $(IMAGE) ..."

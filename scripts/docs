@@ -1,0 +1,3 @@
+#!/bin/bash
+apiserver-boot build docs --operations=true
+

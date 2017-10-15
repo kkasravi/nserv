@@ -1,14 +1,21 @@
 apiVersion: nserv.aipg.intel.com/v1
 kind: Cluster
 metadata:
-  name: ex1
+  name: TFCluster
   labels:
-    name: ex1
+    name: TFCluster
 spec:
-  worker:
+  Workers:
   - worker0.example.com:2222
   - worker1.example.com:2222
   - worker2.example.com:2222
-  ps:
+  WorkerSpec:
+    ReplicaSetName: workers
+    Replicas: 1
+  Ps:
   - ps0.example.com:2222
   - ps1.example.com:2222
+  PsSpec:
+    StatefulSetName: ps
+    Replicas: 1
+
