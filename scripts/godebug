@@ -24,6 +24,9 @@ attach ()
     gdb)
       gdb --quiet -iex "set auto-load safe-path /usr/local/go/src/runtime/runtime-gdb.py" -pid $pid
       ;;
+    gogland)
+      dlv --listen=:2345 --headless=true --api-version=2 attach $pid
+      ;;
     *)
       echo "unknown debugger $GODEBUGGER"
       ;;

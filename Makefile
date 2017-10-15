@@ -42,10 +42,10 @@ create-cluster:
 	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig create -f sample/cluster.yaml
 
 get-cluster:
-	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig get cluster ex1 -oyaml
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig get cluster tfcluster -oyaml
 
 delete-cluster:
-	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig delete cluster ex1
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig delete cluster tfcluster
 
 clean:
 	@echo "Removing image $(IMAGE) ..."

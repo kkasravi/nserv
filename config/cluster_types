@@ -79,12 +79,12 @@ type ClusterSpec struct {
 
 type WorkerSpec struct {
 	ReplicaSetName string `json:"replicaSetName"`
-        Replicas       *int32 `json:"replicas"`
+        Replicas *int32 `json:"replicas"`
 }
 
 type PsSpec struct {
 	StatefulSetName string `json:"statefulSetName"`
-        Replicas       *int32 `json:"replicas"`
+        Replicas *int32 `json:"replicas"`
 }
 
 // ClusterStatus defines the observed state of Cluster
