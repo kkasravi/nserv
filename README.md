@@ -2,7 +2,7 @@
 
 Nserv leverages the kubernetes [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder) and is a type of User Api Server `[UAS]`. This kubernetes implementation includes the client, types and controller.
 
-The nerv controller is called a Supervisor and accepts yaml's of the form 
+The **nserv** controller is called a _Supervisor_ and accepts yaml's of the form 
 ```
 apiVersion: dls.aipg.intel.com/v1
 kind: Supervisor
@@ -60,10 +60,8 @@ type PsSpec struct {
 }
 ```
 
-
 ## Prerequisites
 - docker client for mac [Docker](https://www.docker.com/docker-mac)
-
 
 ## Installation
 1. `cd $GOPATH/src/github.com/nervanasystems/nserv`
