@@ -1,0 +1,8 @@
+#!/bin/bash
+
+isup=$(docker-compose ps -q)
+if [ ! -n "$isup" ]; then
+  echo "Bringing up apiserver $1 ..."
+  docker-compose up -d
+  docker-compose ps
+fi

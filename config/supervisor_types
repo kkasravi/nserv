@@ -51,25 +51,25 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 
-	"github.com/nervanasystems/nserv/pkg/apis/nserv"
+	"github.com/nervanasystems/nserv/pkg/apis/dls"
 )
 
 // +genclient=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Cluster
+// Supervisor
 // +k8s:openapi-gen=true
-// +resource:path=clusters,strategy=ClusterStrategy
-type Cluster struct {
+// +resource:path=supervisors,strategy=SupervisorStrategy
+type Supervisor struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ClusterSpec   `json:"spec,omitempty"`
-	Status ClusterStatus `json:"status,omitempty"`
+	Spec   SupervisorSpec   `json:"spec,omitempty"`
+	Status SupervisorStatus `json:"status,omitempty"`
 }
 
-// ClusterSpec defines the desired state of Cluster
-type ClusterSpec struct {
+// SupervisorSpec defines the desired state of Supervisor
+type SupervisorSpec struct {
 	Workers []string `json:",inline"`
 	Ps []string `json:",inline"`
 
@@ -87,22 +87,22 @@ type PsSpec struct {
         Replicas *int32 `json:"replicas"`
 }
 
-// ClusterStatus defines the observed state of Cluster
-type ClusterStatus struct {
+// SupervisorStatus defines the observed state of Supervisor
+type SupervisorStatus struct {
 }
 
-// Validate checks that an instance of Cluster is well formed
-func (ClusterStrategy) Validate(ctx request.Context, obj runtime.Object) field.ErrorList {
-	o := obj.(*nserv.Cluster)
-	log.Printf("Validating fields for Cluster %s\n", o.Name)
+// Validate checks that an instance of Supervisor is well formed
+func (SupervisorStrategy) Validate(ctx request.Context, obj runtime.Object) field.ErrorList {
+	o := obj.(*dls.Supervisor)
+	log.Printf("Validating fields for Supervisor %s\n", o.Name)
 	errors := field.ErrorList{}
 	// perform validation here and add to errors using field.Invalid
 	return errors
 }
 
-// DefaultingFunction sets default Cluster field values
-func (ClusterSchemeFns) DefaultingFunction(o interface{}) {
-	obj := o.(*Cluster)
+// DefaultingFunction sets default Supervisor field values
+func (SupervisorSchemeFns) DefaultingFunction(o interface{}) {
+	obj := o.(*Supervisor)
 	// set default field values here
-	log.Printf("Defaulting fields for Cluster %s\n", obj.Name)
+	log.Printf("Defaulting fields for Supervisor %s\n", obj.Name)
 }

@@ -9,12 +9,12 @@ all: build
 
 build:
 	@echo building
-	@docker build -t $(IMAGE) .
+	@docker build --no-cache -t $(IMAGE) .
 
-debug:
+debug: env-up
 	@docker-compose exec --privileged nserv env GODEBUGGER=$(GODEBUGGER) /go/src/github.com/nervanasystems/nserv/scripts/godebug attach bin/apiserver
 
-dev:
+dev: env-up
 	@echo "create shell in $(IMAGE) ..."
 	@docker-compose exec --privileged nserv /bin/bash -l
 
@@ -27,41 +27,46 @@ env-api:
 	@docker-compose run nserv /bin/bash
 
 env-up:
-	@echo "Bringing up apiserver $(IMAGE) ..."
-	@docker-compose up -d
-	@docker-compose ps
+	@scripts/env-up $(IMAGE) 
 
-logs:
+local-source: env-up
+	@echo "Copying down cmd/, pkg/, sample/, vendor/ ..."
+	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/cmd .
+	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/pkg .
+	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/sample .
+	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/vendor .
+
+logs: env-up
 	@echo "Fetch logs for $(IMAGE) ..."
 	@docker-compose logs -f nserv
 
-validate:
+validate: env-up
 	@kubectl --kubeconfig=kubeconfig api-versions
 
-create-cluster:
-	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig create -f sample/cluster.yaml
+create-supervisor: env-up
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig create -f sample/supervisor.yaml
 
-get-cluster:
-	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig get cluster tfcluster -oyaml
+get-supervisor: env-up
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig get supervisor tfcluster -oyaml
 
-delete-cluster:
-	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig delete cluster tfcluster
+delete-supervisor: env-up
+	@docker-compose exec nserv kubectl --kubeconfig=kubeconfig delete supervisor tfcluster
 
 clean:
 	@echo "Removing image $(IMAGE) ..."
-	@docker rmi $(IMAGE)
+	@docker rmi $(IMAGE) --force
 
 scrub:
 	@echo "Removing <none> image ..."
 	@docker images | grep '<none>' | awk '{print $$3}' | xargs docker rmi --force
 
-schemas:
+schemas: env-up
 	@echo Generating schemas
 	@docker-compose exec -d -T nserv kubectl --kubeconfig=kubeconfig proxy
 	@docker-compose exec nserv openapi2jsonschema http://127.0.0.1:8001/swagger.json
 	@docker-compose exec nserv pkill kubectl
 	@docker cp $(shell docker-compose ps -q):/go/src/github.com/nervanasystems/nserv/schemas .
 
-test:
+test: env-up
 	@echo Running tests
 	@docker-compose exec nserv go test ./pkg/...

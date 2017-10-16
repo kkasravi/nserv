@@ -60,6 +60,9 @@ type PsSpec struct {
 }
 ```
 
+The Supervisor creates both a ReplicaSet and a StatefulSet
+![yaml submission](design/clusterspec.png)
+
 ## Prerequisites
 - docker client for mac [Docker](https://www.docker.com/docker-mac)
 

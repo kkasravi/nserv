@@ -1,10 +1,10 @@
 #!/bin/bash
 scripts/clean
 apiserver-boot init repo --domain aipg.intel.com
-apiserver-boot create group version resource --group nserv --version v1 --kind Cluster
+apiserver-boot create group version resource --group dls --version v1 --kind Supervisor
 apiserver-boot build generated
-cp config/cluster_types pkg/apis/nserv/v1/cluster_types.go
-cp config/cluster_sample sample/cluster.yaml
+cp config/supervisor_types pkg/apis/nserv/v1/supervisor_types.go
+cp config/supervisor_sample sample/supervisor.yaml
 
 case "$HOME" in
   /root)
