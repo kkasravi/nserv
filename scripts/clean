@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf $(ls | egrep -v 'README.md,apiserver.local.config|kubeconfig|Dockerfile|Makefile|boilerplate.go.txt|config|docker-compose.yml|scripts')
+rm -rf $(ls | egrep -v 'README.md,apiserver.local.config|design|kubeconfig|Dockerfile|Makefile|boilerplate.go.txt|config|docker-compose.yml|scripts')
