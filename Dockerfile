@@ -24,8 +24,8 @@ RUN go get -u github.com/derekparker/delve/cmd/dlv
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
 WORKDIR /usr/local
-RUN curl -LO https://github.com/kubernetes-incubator/apiserver-builder/releases/download/v0.1-alpha.19/apiserver-builder-v0.1-alpha.19-linux-amd64.tar.gz
-RUN tar xf apiserver-builder-v0.1-alpha.19-linux-amd64.tar.gz && rm apiserver-builder-v0.1-alpha.19-linux-amd64.tar.gz
+RUN curl -LO https://github.com/kubernetes-incubator/apiserver-builder/releases/download/v0.1-alpha.25/apiserver-builder-v0.1-alpha.25-linux-amd64.tar.gz
+RUN tar xf apiserver-builder-v0.1-alpha.25-linux-amd64.tar.gz && rm apiserver-builder-v0.1-alpha.25-linux-amd64.tar.gz
 
 WORKDIR /tmp
 RUN curl -LO https://github.com/coreos/etcd/releases/download/v3.2.9/etcd-v3.2.9-linux-amd64.tar.gz
